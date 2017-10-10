@@ -2,6 +2,7 @@ class Game
 
   def initialize
     @turns = 1
+    @round = 0
     @player1 = Player.new 1
     @player2 = Player.new 2
     start_round
@@ -12,8 +13,9 @@ class Game
     @win = 0
     while @win < 1
       puts
-      puts "----- TURN ##{@turns} -----"
-      if (@turns % 2 == 1 )
+      puts "----- TURN ##{@round} -----"
+      if (@turns === 1 )
+        @turns = @turns - 1
         question.ask_question @player1
         if (@player1.life == 0)
           game_over @player2
@@ -22,6 +24,7 @@ class Game
           show_score
         end
       else
+        @turns = @turns + 1
         question.ask_question @player2
         if (@player2.life == 0)
           game_over @player1
@@ -30,7 +33,7 @@ class Game
           show_score
         end
       end
-      @turns += 1
+      @round += 1
     end
   end
 
